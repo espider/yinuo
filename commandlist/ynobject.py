@@ -95,10 +95,10 @@ class YNHeap(yn.YNCommand):
 
     def handle_command_heap_stat(self):
         """ display heap statistics info. """
-        if len(self.__heap__) > 0:
+        if len(self.__heap__) > 0 and "Gen 2" in self.__heap__:
             # heap_block = [[0] * 4] * len(self.__heap__)
-            heap_block = [[0 for _ in range(4)]
-                          for _ in range(len(self.__heap__))]
+            heap_block = [[0 for _ in range(4)] for _ in range(
+                len(self.__heap__["Gen 2"].__heapRange__))]
             for key, value in self.__heap__.iteritems():
                 loop = 0
                 if len(value.__heapRange__) > 0:
@@ -134,9 +134,9 @@ class YNHeap(yn.YNCommand):
                             block_gen0 = round(
                                 gen0_per * self.__block_count__)
                             block_loh = self.__block_count__ \
-                                        - gen2_per * self.__block_count__ \
-                                        - gen1_per * self.__block_count__ \
-                                        - gen0_per * self.__block_count__
+                                - gen2_per * self.__block_count__ \
+                                - gen1_per * self.__block_count__ \
+                                - gen0_per * self.__block_count__
 
                             export_content(
                                 '    %sGen2:%f%%  %sGen1:%f%%  %sGen0:%f%%  %sLOH:%f%%      Total:%s' %
@@ -439,9 +439,9 @@ class YNObjectDump(yn.YNCommand):
             for index_one in range(len(lines_obj)):
                 line_words = lines_obj[index_one].split()
                 if len(line_words) == 8 and (
-                            (len(
-                                line_words[6]) == 16 or len(
-                                line_words[6]) == 8) and line_words[6] != 'Value'):
+                    (len(
+                        line_words[6]) == 16 or len(
+                        line_words[6]) == 8) and line_words[6] != 'Value'):
                     export_content(
                         '    %s' %
                         lines_obj[index_one].replace(

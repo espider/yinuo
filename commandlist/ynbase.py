@@ -76,7 +76,7 @@ class YNManageHeap:
         if len(self.__heapRange__) > 0:
             for i in range(0, len(self.__heapRange__)):
                 if self.__heapRange__[
-                    i][0] < address < self.__heapRange__[i][1]:
+                        i][0] < address < self.__heapRange__[i][1]:
                     return True
         else:
             pass
